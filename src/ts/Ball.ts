@@ -13,8 +13,8 @@ export class Ball {
         this.m_x = x;
         this.m_y = y;
         this.m_radius = 9;
-        this.m_speed = 7;
-        this.m_angle = 25;
+        this.m_speed = 5;
+        this.m_angle = -25;
     }
 
     public drawBall() {
@@ -23,8 +23,6 @@ export class Ball {
         this.m_ctx.arc(this.m_x, this.m_y, this.m_radius, 0, 2 * Math.PI);
         this.m_ctx.fill();
 
-        this.m_ctx.rect(this.m_x - this.m_radius, this.m_y - this.m_radius, this.m_radius * 2, this.m_radius * 2);
-        this.m_ctx.stroke();
     }
 
     public horizontalRebound() {
@@ -37,8 +35,16 @@ export class Ball {
 
     public moveBall() {
         let temp = (Math.PI * this.m_angle) / 180; 
-        this.m_x += this.m_speed * Math.cos(temp);
-        this.m_y += this.m_speed * Math.sin(temp);
+        this.m_x += Math.round(this.m_speed * Math.cos(temp));
+        this.m_y += Math.round(this.m_speed * Math.sin(temp));
+    }
+
+    public upSpeed() {
+        if(this.m_speed < 20) {
+            this.m_speed += 1;
+        } else {
+            this.m_speed = 20;
+        }        
     }
 
     get ballX() {
@@ -55,5 +61,13 @@ export class Ball {
 
     get ballH() {
         return this.m_radius * 2;
+    }    
+
+    get angle() {
+        return  this.m_angle;
+    }
+
+    set setAngle(value:number) {
+        this.m_angle = value;
     }
 }

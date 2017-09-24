@@ -137,7 +137,7 @@ import {Brick} from './Brick';
                 if(pause.statePause) {
                     // Le jeu commence ici                   
                     context.clearRect(0, 0, canvasWidth, canvasHeight);               
-                    
+                    console.log(ball.angle);
                     for(let i = 0; i < bricks.length; i++) {
                         bricks[i].drawBrick();
                     }
@@ -146,7 +146,7 @@ import {Brick} from './Brick';
                     racket.moveRacket();
 
                     ball.drawBall();
-                    ball.moveBall();      
+                    ball.moveBall();                                                               
                     
                     if(ball.ballX <= 0 || (ball.ballX + ball.ballW) >= canvasWidth) {
                         ball.verticalRebound();                 
@@ -157,40 +157,40 @@ import {Brick} from './Brick';
                     }
 
                     if(((ball.ballY + ball.ballH) >= racket.racketY) && (ball.ballX >= racket.racketX) && ((ball.ballX + ball.ballW) <= (racket.racketX + racket.racketW))) {
+                        let temp = 1;
+
+                        if(ball.ballX < racket.racketX + (racket.racketW * .5)) {
+                            temp = Math.round(Math.abs(racket.racketX - ball.ballX));
+                            //alert((temp * 100) / racket.racketW);
+                        } else {
+                            temp = Math.round(Math.abs(racket.racketX + (racket.racketW * .5) - ball.ballX));
+                            //alert((temp * 100) / racket.racketW);
+                        }
+
+                        temp = (temp * 100) / racket.racketW;   
+
+                        
+                        //ball.setAngle = temp * ball.angle;
                         ball.horizontalRebound();
+                        ball.upSpeed();
                     }
 
                     for(let i = 0; i < bricks.length; i++) {
-                        if(ball.ballX > bricks[i].brickX && ball.ballX < (bricks[i].brickX + bricks[i].brickW) && ball.ballY > bricks[i].brickY && ball.ballY < (bricks[i].brickY + bricks[i].brickH)) {                                                       
-                           /* if(ball.ballX + ball.ballW >= bricks[i].brickX && ball.ballX <= bricks[i].brickX + bricks[i].brickW) {     
-                                alert("h")                                                                                                     
-                                ball.horizontalRebound();
-                            }*/
-
+                        if((ball.ballX + ball.ballW) >= bricks[i].brickX && ball.ballX <= (bricks[i].brickX + bricks[i].brickW) && (ball.ballY + ball.ballH) > bricks[i].brickY && ball.ballY <= (bricks[i].brickY + bricks[i].brickH)) {                                                  
                             switch(true) {
-                                case ((ball.ballX + ball.ballW) >= bricks[i].brickX):
-                                    ball.verticalRebound();
-                                break;
-
-                                case (ball.ballX <= bricks[i].brickX + bricks[i].brickW):
-                                    ball.verticalRebound();
-                                break;
-
-                                case ((ball.ballY + ball.ballH) >= bricks[i].brickY):
+                                case (ball.ballX > bricks[i].brickX && (ball.ballX + ball.ballW) < (bricks[i].brickX + bricks[i].brickW)):                                
                                     ball.horizontalRebound();
                                 break;
 
-                                case (ball.ballY <= bricks[i].brickY + bricks[i].brickH):
-                                    ball.horizontalRebound();
+                                case ((ball.ballY + ball.ballH) > bricks[i].brickY && ball.ballY < (bricks[i].brickY + bricks[i].brickH)):
+                                    ball.verticalRebound();
+                                break;
+
+                                default:
                                 break;
                             }
-                            
-                            /*if(ball.ballY <= bricks[i].brickY + bricks[i].brickH && ball.ballX + ball.ballW > bricks[i].brickX && ball.ballX < bricks[i].brickX + bricks[i].brickW) {     
-                                alert("h")                                                                                                     
-                                ball.horizontalRebound();
-                            }*/
 
-                            bricks.splice(i, 1);
+                            bricks.splice(i, 1);                    
                         }
                     }
                 } else {

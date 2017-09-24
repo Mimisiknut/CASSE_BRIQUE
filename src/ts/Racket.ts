@@ -14,7 +14,7 @@ export class Racket {
         this.m_y = y;
         this.m_w = w;
         this.m_h = h;
-        this.m_speed = 10;
+        this.m_speed = 15;
         this.m_left = false;
         this.m_right = false;
     }
