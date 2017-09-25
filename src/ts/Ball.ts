@@ -13,7 +13,7 @@ export class Ball {
         this.m_x = x;
         this.m_y = y;
         this.m_radius = 9;
-        this.m_speed = 5;
+        this.m_speed = 7;
         this.m_angle = -25;
     }
 
@@ -26,7 +26,7 @@ export class Ball {
     }
 
     public horizontalRebound() {
-        this.m_angle = 360 - this.m_angle;
+        this.m_angle = (360 - this.m_angle);
     }
 
     public verticalRebound() {

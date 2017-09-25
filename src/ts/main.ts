@@ -63,7 +63,7 @@ import {Brick} from './Brick';
     }
 
     //init de la racket
-    let racket = new Racket(context, (canvasWidth * .5) - 75, canvasHeight - 10, 150, 7);
+    let racket = new Racket(context, (canvasWidth * .5) - 100, canvasHeight - 10, 200, 7);
     racket.keyBoardEvent();
 
     //init de la ball
@@ -131,13 +131,14 @@ import {Brick} from './Brick';
                 }
             }                                           
         },
-        initGameLoop: () => {           
+        initGameLoop: () => {     
+            let counter = 3;      
             let gameLoop = () => {
                 
                 if(pause.statePause) {
                     // Le jeu commence ici                   
-                    context.clearRect(0, 0, canvasWidth, canvasHeight);               
-                    console.log(ball.angle);
+                    context.clearRect(0, 0, canvasWidth, canvasHeight);                     
+
                     for(let i = 0; i < bricks.length; i++) {
                         bricks[i].drawBrick();
                     }
@@ -160,19 +161,22 @@ import {Brick} from './Brick';
                         let temp = 1;
 
                         if(ball.ballX < racket.racketX + (racket.racketW * .5)) {
-                            temp = Math.round(Math.abs(racket.racketX - ball.ballX));
-                            //alert((temp * 100) / racket.racketW);
+                            temp = Math.round(Math.abs(racket.racketX + (racket.racketW * .5) - ball.ballX));
                         } else {
                             temp = Math.round(Math.abs(racket.racketX + (racket.racketW * .5) - ball.ballX));
-                            //alert((temp * 100) / racket.racketW);
                         }
 
                         temp = (temp * 100) / racket.racketW;   
-
+                        ball.setAngle = Math.PI * temp;
                         
-                        //ball.setAngle = temp * ball.angle;
                         ball.horizontalRebound();
-                        ball.upSpeed();
+
+                        counter--;
+
+                        if(counter == 0) {
+                            ball.upSpeed();
+                            counter = 3
+                        }                        
                     }
 
                     for(let i = 0; i < bricks.length; i++) {
@@ -190,7 +194,7 @@ import {Brick} from './Brick';
                                 break;
                             }
 
-                            bricks.splice(i, 1);                    
+                            bricks.splice(i, 1);                                                
                         }
                     }
                 } else {
