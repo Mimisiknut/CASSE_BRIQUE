@@ -132,16 +132,17 @@ import {Brick} from './Brick';
             }                                           
         },
         initGameLoop: () => {     
-            let counter = 3;      
+            let counter = 3;    
+            let temp = 1;
+              
             let gameLoop = () => {
                 
                 if(pause.statePause) {
                     // Le jeu commence ici                   
                     context.clearRect(0, 0, canvasWidth, canvasHeight);                     
+                    console.log(ball.angle);
 
-                    for(let i = 0; i < bricks.length; i++) {
-                        bricks[i].drawBrick();
-                    }
+                    bricks.map((obj) => obj.drawBrick());
 
                     racket.drawRacket();
                     racket.moveRacket();
@@ -157,20 +158,17 @@ import {Brick} from './Brick';
                         ball.horizontalRebound();
                     }
 
-                    if(((ball.ballY + ball.ballH) >= racket.racketY) && (ball.ballX >= racket.racketX) && ((ball.ballX + ball.ballW) <= (racket.racketX + racket.racketW))) {
-                        let temp = 1;
-
-                        if(ball.ballX < racket.racketX + (racket.racketW * .5)) {
-                            temp = Math.round(Math.abs(racket.racketX + (racket.racketW * .5) - ball.ballX));
+                    if(((ball.ballY + ball.ballH) >= racket.racketY) && (ball.ballX >= racket.racketX) && ((ball.ballX + ball.ballW) <= (racket.racketX + racket.racketW))) {    
+                        if(ball.ballX > (racket.racketX + (racket.racketW * .5))) {
+                            temp = Math.round(Math.abs(racket.racketW - (ball.ballX - racket.racketX)));
                         } else {
-                            temp = Math.round(Math.abs(racket.racketX + (racket.racketW * .5) - ball.ballX));
-                        }
+                            temp = Math.round(Math.abs(ball.ballX - racket.racketX));
+                        }                                    
 
-                        temp = (temp * 100) / racket.racketW;   
+                        temp = (temp * 100) / racket.racketW; 
                         ball.setAngle = Math.PI * temp;
-                        
-                        ball.horizontalRebound();
-
+                       
+                        ball.horizontalRebound();                        
                         counter--;
 
                         if(counter == 0) {
@@ -216,7 +214,7 @@ import {Brick} from './Brick';
                     
                             case 1: 
                             btnPauses[i].drawButton(
-                                "MENU PRINCIPALE", 
+                                "MENU PRINCIPAL", 
                                 btnPauses[i].xButton + (btnPauses[i].wButton* .5), 
                                 (btnPauses[i].yButton + 2.5) + (btnPauses[i].hButton * .5),
                                 (canvasWidth * .5) - 100,
