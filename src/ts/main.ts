@@ -167,7 +167,7 @@ import {Brick} from './Brick';
                         }                                    
 
                         temp = (temp * 100) / racket.racketW; 
-                        ball.setAngle = temp * 20;
+                        ball.setAngle = Math.round(temp * Math.PI);
                        
                         ball.horizontalRebound();                        
                         counter--;
