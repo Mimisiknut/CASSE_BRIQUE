@@ -134,13 +134,14 @@ import {Brick} from './Brick';
         initGameLoop: () => {     
             let counter = 3;    
             let temp = 1;
+            let i = 0;
               
             let gameLoop = () => {
                 
                 if(pause.statePause) {
                     // Le jeu commence ici                   
                     context.clearRect(0, 0, canvasWidth, canvasHeight);                     
-                    console.log(ball.angle);
+                    //console.log(ball.angle);
 
                     bricks.map((obj) => obj.drawBrick());
 
@@ -177,7 +178,7 @@ import {Brick} from './Brick';
                         }                        
                     }
 
-                    for(let i = 0; i < bricks.length; i++) {
+                    for(i = 0; i < bricks.length; i++) {
                         if((ball.ballX + ball.ballW) >= bricks[i].brickX && ball.ballX <= (bricks[i].brickX + bricks[i].brickW) && (ball.ballY + ball.ballH) > bricks[i].brickY && ball.ballY <= (bricks[i].brickY + bricks[i].brickH)) {                                                  
                             switch(true) {
                                 case (ball.ballX > bricks[i].brickX && (ball.ballX + ball.ballW) < (bricks[i].brickX + bricks[i].brickW)):                                
