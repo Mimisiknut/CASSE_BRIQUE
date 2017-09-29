@@ -92,7 +92,7 @@ import {Brick} from './Brick';
                 switch(i) {
                     case 0: 
                         buttons[i].drawButton(
-                            "JOUER", 
+                            "PLAY", 
                             canvasWidth * .5, 
                             ((canvasHeight * .5) - ((55 * 3) * .5) + i * 55) + 27.5, 
                             (canvasWidth * .5) - 100,
@@ -104,7 +104,7 @@ import {Brick} from './Brick';
             
                     case 1: 
                         buttons[i].drawButton(
-                            "MEILLEURES SCORES", 
+                            "BUILD", 
                             canvasWidth * .5, 
                             ((canvasHeight * .5) - ((55 * 3) * .5) + i * 55) + 27.5,
                             (canvasWidth * .5) - 100,
@@ -116,7 +116,7 @@ import {Brick} from './Brick';
                     
                     case 2:
                         buttons[i].drawButton(
-                            "OPTIONS", 
+                            "SCORES", 
                             canvasWidth * .5, 
                             ((canvasHeight * .5) - ((55 * 3) * .5) + i * 55) + 27.5,
                             (canvasWidth * .5) - 100,
@@ -140,8 +140,7 @@ import {Brick} from './Brick';
                 
                 if(pause.statePause) {
                     // Le jeu commence ici                   
-                    context.clearRect(0, 0, canvasWidth, canvasHeight);                     
-                    //console.log(ball.angle);
+                    context.clearRect(0, 0, canvasWidth, canvasHeight);    
 
                     bricks.map((obj) => obj.drawBrick());
 
