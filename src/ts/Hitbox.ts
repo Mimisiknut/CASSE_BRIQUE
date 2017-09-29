@@ -1,8 +1,14 @@
 export class Hitbox {
     constructor() {}
 
-    public hitTestPoint(object1X, object1Y, object1W, object1H, object2X, object2Y, object2W, object2H) {
-        if((object1X + object1W) >= object2X && object1X <= object2X + object2W && (object1Y + object1H) >= object2Y && object1Y <= object2Y + object2H) {
+    public hitTestPoint(x1, y1, w1, h1, x2, y2, w2, h2) {
+
+        if((x1 + w1) < x2
+        || x1 > (x2 + w2)
+        || (y1 + h1) < y2
+        || y1 > (y2 + h2)) {
+            return false;
+        } else {
             return true;
         }
     }

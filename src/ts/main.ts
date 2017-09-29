@@ -67,7 +67,10 @@ import {Brick} from './Brick';
     racket.keyBoardEvent();
 
     //init de la ball
-    let ball = new Ball(context, (canvasWidth * .5), canvasHeight - 20);
+    let ball = new Ball(context, (canvasWidth * .5), canvasHeight - 20);   
+    ball.start(); 
+
+    let collisionsBricks = new Hitbox();
 
     canvas.addEventListener("click", (e) => {
         switch(stateMachine) {
@@ -134,7 +137,7 @@ import {Brick} from './Brick';
         initGameLoop: () => {     
             let counter = 3;    
             let temp = 1;
-            let i = 0;
+            let i = 0;            
               
             let gameLoop = () => {
                 
@@ -148,7 +151,8 @@ import {Brick} from './Brick';
                     racket.moveRacket();
 
                     ball.drawBall();
-                    ball.moveBall();                                                               
+                    ball.moveBall();    
+                    ball.definedAngle();                                                           
                     
                     if(ball.ballX <= 0 || (ball.ballX + ball.ballW) >= canvasWidth) {
                         ball.verticalRebound();                 
@@ -178,7 +182,16 @@ import {Brick} from './Brick';
                     }
 
                     for(i = 0; i < bricks.length; i++) {
-                        if((ball.ballX + ball.ballW) >= bricks[i].brickX && ball.ballX <= (bricks[i].brickX + bricks[i].brickW) && (ball.ballY + ball.ballH) > bricks[i].brickY && ball.ballY <= (bricks[i].brickY + bricks[i].brickH)) {                                                  
+                        if(collisionsBricks.hitTestPoint(
+                            ball.ballX, 
+                            ball.ballY, 
+                            ball.ballW, 
+                            ball.ballH,
+                            bricks[i].brickX,
+                            bricks[i].brickY,
+                            bricks[i].brickW,
+                            bricks[i].brickH
+                        )) {                                                 
                             switch(true) {
                                 case (ball.ballX > bricks[i].brickX && (ball.ballX + ball.ballW) < (bricks[i].brickX + bricks[i].brickW)):                                
                                     ball.horizontalRebound();

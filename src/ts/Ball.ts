@@ -7,6 +7,10 @@ export class Ball {
     private m_radius:number
     private m_speed:number;
     private m_angle:number;
+    private m_start:boolean;
+    private m_angleMax:boolean;
+    private m_angleTemp:number;
+    private m_life:number;
 
     constructor(ctx, x, y) {
         this.m_ctx = ctx;
@@ -14,7 +18,10 @@ export class Ball {
         this.m_y = y;
         this.m_radius = 9;
         this.m_speed = 10;
-        this.m_angle = -25;
+        this.m_angle = -150;
+        this.m_start = false;
+        this.m_angleMax = true;
+        this.m_life = 3;
     }
 
     public drawBall() {
@@ -33,10 +40,38 @@ export class Ball {
         this.m_angle = 180 - this.m_angle;
     }
 
+    public start() {
+        window.addEventListener('keyup', (e) => {
+            if(e.keyCode == 32) {
+                this.m_start = true;
+            }
+        }, false);
+    }
+
+    public definedAngle() {
+        if(!this.m_start) {
+            if(this.m_angle >= -25) {
+                this.m_angleMax = false;
+            } else if(this.m_angle <= -150) {
+                this.m_angleMax = true;
+            }
+
+            if(this.m_angleMax) {
+                this.m_angle++;
+            } else {
+                this.m_angle--;
+            }  
+            
+            console.log(this.m_angle);
+        }                
+    }
+
     public moveBall() {
-        let temp = (Math.PI * this.m_angle) / 180; 
-        this.m_x += Math.round(this.m_speed * Math.cos(temp));
-        this.m_y += Math.round(this.m_speed * Math.sin(temp));
+        if(this.m_start) {
+            this.m_angleTemp = (Math.PI * this.m_angle) / 180; 
+            this.m_x += Math.round(this.m_speed * Math.cos(this.m_angleTemp));
+            this.m_y += Math.round(this.m_speed * Math.sin(this.m_angleTemp));
+        }
     }
 
     public upSpeed() {
