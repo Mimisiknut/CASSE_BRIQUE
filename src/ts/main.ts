@@ -19,58 +19,7 @@ import {Brick} from './Brick';
     let event = new Event('state');
     let stateMachine:any = "state2";
 
-    let requestAnimFrame;
-
-    // initialisation du menu principal
-    let menu = new MainMenu(context, 0, 0, canvasWidth, canvasHeight);
-
-    // initialisation des boutons du menu principal
-    let buttons = new Array(3);
-
-    for(let i = 0; i < buttons.length; i++) {
-        buttons[i] = new Button({
-            ctx: context,
-            name: "state"+(i+1),
-            color: "#ffffff",
-            background: "#ff0000"
-        });
-    }
-
-    //initialisation du menu pause
-    let pause = new PauseMenu(context, (canvasWidth * .5) - 150, (canvasHeight * .5) - 250, 300, 500);
-    // initialisation des events du menu pause
-    pause.eventPause();     
-
-    // initialisation des boutons du menu pause
-    let btnPauses = new Array(2);              
-    
-    for(let i = 0; i < btnPauses.length; i++){  
-        btnPauses[i] = new Button({
-            ctx: context,
-            name: i == 0 ? "state0" :"state"+(i+1),
-            color: "#ffffff",
-            background: "#000"
-        });
-    }
-
-    //init des bricks
-    let bricks = Array();
-
-    for(let i = 0; i < 10; i++) {
-        for(let j = 0; j < 5; j++) {
-            bricks.push(new Brick(context, (105 * i) + ((canvasWidth * .5) - (105 * 5)), (55 * j) + 50, 100, 50));
-        }        
-    }
-
-    //init de la racket
-    let racket = new Racket(context, (canvasWidth * .5) - 100, canvasHeight - 10, 200, 7);
-    racket.keyBoardEvent();
-
-    //init de la ball
-    let ball = new Ball(context, (canvasWidth * .5), canvasHeight - 20);   
-    ball.start(); 
-
-    let collisionsBricks = new Hitbox();
+    let requestAnimFrame, menu, pause, buttons, btnPauses, bricks, racket, ball, collisionsBricks;
 
     canvas.addEventListener("click", (e) => {
         switch(stateMachine) {
@@ -88,6 +37,58 @@ import {Brick} from './Brick';
     }, false);
 
     let app = {
+        init: () => {
+            menu = new MainMenu(context, 0, 0, canvasWidth, canvasHeight);
+            
+            // initialisation des boutons du menu principal
+            buttons = new Array(3);
+        
+            for(let i = 0; i < buttons.length; i++) {
+                buttons[i] = new Button({
+                    ctx: context,
+                    name: "state"+(i+1),
+                    color: "#ffffff",
+                    background: "#ff0000"
+                });
+            }
+        
+            //initialisation du menu pause
+            pause = new PauseMenu(context, (canvasWidth * .5) - 150, (canvasHeight * .5) - 250, 300, 500);
+            // initialisation des events du menu pause
+            pause.eventPause();     
+        
+            // initialisation des boutons du menu pause
+            btnPauses = new Array(2);              
+            
+            for(let i = 0; i < btnPauses.length; i++){  
+                btnPauses[i] = new Button({
+                    ctx: context,
+                    name: i == 0 ? "state0" :"state"+(i+1),
+                    color: "#ffffff",
+                    background: "#000"
+                });
+            }
+        
+            //init des bricks
+            bricks = Array();
+        
+            for(let i = 0; i < 10; i++) {
+                for(let j = 0; j < 5; j++) {
+                    bricks.push(new Brick(context, (105 * i) + ((canvasWidth * .5) - (105 * 5)), (55 * j) + 50, 100, 50));
+                }        
+            }
+        
+            //init de la racket
+            racket = new Racket(context, (canvasWidth * .5) - 100, canvasHeight - 10, 200, 7);
+            racket.keyBoardEvent();
+        
+            //init de la ball
+            ball = new Ball(context, (canvasWidth * .5), canvasHeight - 20);   
+            ball.start(); 
+        
+            collisionsBricks = new Hitbox();
+        },
+
         initMainMenu: () => {    
             menu.drawMenu();
             
@@ -312,6 +313,7 @@ import {Brick} from './Brick';
     }, false);    
 
     window.addEventListener("load", () => {
+        app.init();
         app.initMainMenu();
     }, false);
 })();
