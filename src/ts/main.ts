@@ -89,6 +89,19 @@ import {Brick} from './Brick';
             collisionsBricks = new Hitbox();
         },
 
+        reset: () => {
+            ball.reset((canvasWidth * .5), canvasHeight - 20);
+            racket.reset((canvasWidth * .5) - 100, canvasHeight - 10);
+
+            bricks.splice(0, bricks.length);
+
+            for(let i = 0; i < 10; i++) {
+                for(let j = 0; j < 5; j++) {
+                    bricks.push(new Brick(context, (105 * i) + ((canvasWidth * .5) - (105 * 5)), (55 * j) + 50, 100, 50));
+                }        
+            }
+        },
+
         initMainMenu: () => {    
             menu.drawMenu();
             
@@ -301,6 +314,7 @@ import {Brick} from './Brick';
             break;
 
             case "state2":
+                app.reset();
                 app.initMainMenu();                
             break;
 
