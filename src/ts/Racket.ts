@@ -50,6 +50,11 @@ export class Racket {
         this.m_ctx.fillRect(this.m_x, this.m_y, this.m_w, this.m_h);
     }
 
+    public reset(x:number, y:number) {
+        this.m_x = x;
+        this.m_y = y;
+    }
+
     public moveRacket() {
         this.m_ctx.fillStyle = "#000000";
         

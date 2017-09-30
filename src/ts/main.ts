@@ -162,6 +162,11 @@ import {Brick} from './Brick';
                         ball.horizontalRebound();
                     }
 
+                    if(ball.ballY > canvasHeight) {                        
+                        ball.reset((canvasWidth * .5), canvasHeight - 20);
+                        racket.reset((canvasWidth * .5) - 100, canvasHeight - 10);
+                    }
+
                     if(((ball.ballY + ball.ballH) >= racket.racketY) && (ball.ballX >= racket.racketX) && ((ball.ballX + ball.ballW) <= (racket.racketX + racket.racketW))) {    
                         if(ball.ballX > (racket.racketX + (racket.racketW * .5))) {
                             temp = Math.round(Math.abs(racket.racketW - (ball.ballX - racket.racketX)));

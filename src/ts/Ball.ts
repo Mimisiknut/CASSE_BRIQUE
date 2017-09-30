@@ -32,6 +32,11 @@ export class Ball {
 
     }
 
+    public drawArrow() {
+        this.m_ctx.fillStyle = "#000";
+        this.m_ctx.fillRect(0,0,0,0);
+    }
+
     public horizontalRebound() {
         this.m_angle = 360 - this.m_angle;
     }
@@ -48,6 +53,12 @@ export class Ball {
         }, false);
     }
 
+    public reset(x:number, y:number) {
+        this.m_start = false;
+        this.m_x = x;
+        this.m_y = y;
+    }
+
     public definedAngle() {
         if(!this.m_start) {
             if(this.m_angle >= -25) {
@@ -62,13 +73,13 @@ export class Ball {
                 this.m_angle--;
             }  
             
-            console.log(this.m_angle);
+            //console.log(this.m_angle);
         }                
     }
 
     public moveBall() {
         if(this.m_start) {
-            this.m_angleTemp = (Math.PI * this.m_angle) / 180; 
+            this.m_angleTemp = 2 * Math.PI * (this.m_angle / 360); 
             this.m_x += Math.round(this.m_speed * Math.cos(this.m_angleTemp));
             this.m_y += Math.round(this.m_speed * Math.sin(this.m_angleTemp));
         }
