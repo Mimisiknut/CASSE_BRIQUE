@@ -57,6 +57,7 @@ export class Ball {
         this.m_start = false;
         this.m_x = x;
         this.m_y = y;
+        this.m_speed = 7;
     }
 
     public definedAngle() {
@@ -111,6 +112,18 @@ export class Ball {
 
     get angle() {
         return  this.m_angle;
+    }
+
+    get getStart() {
+        return this.m_start;
+    }
+
+    get getLife() {
+        return this.m_life;
+    }
+
+    set setLife(value:number) {
+        this.m_life = value;
     }
 
     set setAngle(value:number) {

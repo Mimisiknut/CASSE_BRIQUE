@@ -1,3 +1,5 @@
+import {Button} from './Button';
+
 export class Menu {
     protected ctx;
     protected x;

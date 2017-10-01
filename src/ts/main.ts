@@ -162,7 +162,8 @@ import {Brick} from './Brick';
                     bricks.map((obj) => obj.drawBrick());
 
                     racket.drawRacket();
-                    racket.moveRacket();
+                    if(ball.getStart)
+                        racket.moveRacket();                                    
 
                     ball.drawBall();
                     ball.moveBall();    
@@ -179,6 +180,13 @@ import {Brick} from './Brick';
                     if(ball.ballY > canvasHeight) {                        
                         ball.reset((canvasWidth * .5), canvasHeight - 20);
                         racket.reset((canvasWidth * .5) - 100, canvasHeight - 10);
+                        ball.setLife = ball.getLife - 1;
+                    }
+
+                    if(ball.getLife <= 0) {
+                        //alert("GAME OVER !");
+                        app.reset();
+                        app.initMainMenu();  
                     }
 
                     if(((ball.ballY + ball.ballH) >= racket.racketY) && (ball.ballX >= racket.racketX) && ((ball.ballX + ball.ballW) <= (racket.racketX + racket.racketW))) {    
